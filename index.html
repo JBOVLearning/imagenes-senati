@@ -1,0 +1,78 @@
+<!--
+  ============================================================
+  INSTRUCCIONES - COLOCAR LAS 2 IMAGENES
+  ============================================================
+  Mas abajo, en el bloque <script>, busca el objeto IMAGENES.
+  Reemplaza el "" por la direccion (URL) o el nombre de archivo
+  de cada banner, por ejemplo:
+      BANNER_1: "banner1.jpg"
+      BANNER_2: "banner2.jpg"
+  Sube esta pagina + las imagenes a un hosting (GitHub Pages,
+  Netlify, Vercel) y luego genera el QR desde el artefacto.
+  ============================================================
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SENATI - Industria Alimentaria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body{
+    font-family:'Lato', 'Segoe UI', system-ui, sans-serif;
+    font-weight:400;
+    background:#eef2f7; color:#1f2937; padding:24px 14px 40px;
+  }
+  .wrap{ max-width:680px; margin:0 auto; }
+  .banner{
+    background:#fff; border-radius:6px; overflow:hidden;
+    box-shadow:0 4px 16px rgba(0,0,0,.08); margin-bottom:24px;
+  }
+  .banner img{ width:100%; display:block; }
+  .placeholder{
+    aspect-ratio:3/4; display:flex; align-items:center; justify-content:center;
+    text-align:center; color:#94a3b8; font-size:15px; font-weight:300; padding:24px;
+    background:repeating-linear-gradient(45deg,#f1f5f9,#f1f5f9 12px,#e7edf4 12px,#e7edf4 24px);
+  }
+  .btn{
+    display:block; width:100%; border:none; cursor:pointer;
+    background:#003a8c; color:#fff; font-family:'Lato', sans-serif;
+    font-weight:700; font-size:15px; letter-spacing:.3px;
+    padding:14px; transition:filter .15s;
+  }
+  .btn:hover{ filter:brightness(1.1); }
+</style>
+
+<div class="wrap" id="wrap"></div>
+
+<script>
+  /* >>> COLOCA AQUI LAS 2 IMAGENES <<< */
+  const IMAGENES = {
+    BANNER_1: "",   // Imagen 1 (Procesamiento + Panaderia)
+    BANNER_2: ""    // Imagen 2 (Control de Calidad + Cocina)
+  };
+
+  const BANNERS = [
+    { key:"BANNER_1", file:"senati-banner-1.jpg" },
+    { key:"BANNER_2", file:"senati-banner-2.jpg" }
+  ];
+
+  const wrap = document.getElementById('wrap');
+  BANNERS.forEach(b=>{
+    const url = IMAGENES[b.key];
+    const imgHTML = url
+      ? `<img src="${url}" alt="Banner SENATI">`
+      : `<div class="placeholder">Coloca aquí la imagen<br><b>${b.key}</b></div>`;
+    wrap.insertAdjacentHTML('beforeend', `
+      <div class="banner">
+        ${imgHTML}
+        <button class="btn" onclick="descargar('${url}','${b.file}')">Descargar imagen</button>
+      </div>`);
+  });
+
+  function descargar(url, nombre){
+    if(!url){ alert('Aún no se ha colocado esta imagen.'); return; }
+    const a=document.createElement('a'); a.href=url; a.download=nombre;
+    a.target="_blank"; document.body.appendChild(a); a.click(); a.remove();
+  }
+</script>
